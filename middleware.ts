@@ -6,29 +6,33 @@ export function middleware(request: NextRequest) {
   const rol = request.cookies.get("rol")?.value;
   const { pathname } = request.nextUrl;
 
-  const rutasOperario = ["/tareas", "/reportes"];
-  const rutasAdministrador = ["/dashboard", "/maquinas"];
+  const rutasOperario = ["/bienvenida", "/tareas", "/reportes", "/chat"];
+  const rutasJefa = ["/dashboard", "/maquinas"];
 
-  const esRutaProtegida =
-  rutasOperario.includes(pathname) || rutasAdministrador.includes(pathname);
+  const esRutaProtegida = rutasOperario.includes(pathname) || rutasJefa.includes(pathname);
 
-  //Sin token, redirigir a login
-    if (esRutaProtegida && !token) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+  if (esRutaProtegida && !token) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
-    //Diferente roles, redirigir a la ruta correspondiente
-    if (rutasAdministrador.includes(pathname) && rol !== "administrador") {
-        return NextResponse.redirect(new URL("/tareas", request.url));
-    }
-    if (rutasOperario.includes(pathname) && rol !== "operario") {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+  if (rutasJefa.includes(pathname) && rol !== "administrador") {
+    return NextResponse.redirect(new URL("/bienvenida", request.url));
+  }
 
-    //ok
-    return NextResponse.next();
+  if (rutasOperario.includes(pathname) && rol !== "operario") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/tareas/:path*", "/reportes/:path*", "/dashboard/:path*", "/maquinas/:path*"],
+  matcher: [
+    "/bienvenida/:path*",
+    "/tareas/:path*",
+    "/reportes/:path*",
+    "/chat/:path*",
+    "/dashboard/:path*",
+    "/maquinas/:path*",
+  ],
 };

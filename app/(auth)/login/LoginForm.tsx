@@ -38,10 +38,10 @@ export default function LoginForm() {
         document.cookie = `rol=${data.user.rol}; path=/; max-age=28800;`; // 8 horas
 
         if (data.user.rol === "administrador") {
-            router.push("/dashboard");
-        } else {
-            router.push("/tareas");
-        }
+            router.replace("/dashboard");
+            } else {
+            router.replace("/bienvenida");
+            }
     }
 
     return (
