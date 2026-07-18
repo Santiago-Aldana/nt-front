@@ -1,21 +1,5 @@
 import Image from "next/image";
-
-
-function LoginForm() {
-    return (
-        <form className="flex flex-col gap-4 w-full">
-            <label className="flex flex-col text-sm text-trenza-azul font-display font-bold">
-                <span>Código de Usuario</span>
-                <input className="text-trenza-azul mt-1 p-2 rounded border focus:outline-none focus:ring-2 focus:ring-trenza-azul" name="username" />
-            </label>
-            <label className="flex flex-col text-sm text-trenza-azul font-display font-bold">
-                <span>Contraseña</span>
-                <input type="password" className="text-trenza-azul mt-1 p-2 rounded border focus:outline-none focus:ring-2 focus:ring-trenza-azul" name="password" />
-            </label>
-            <button type="submit" className="mt-2 bg-trenza-azul text-white py-2 rounded">Entrar</button>
-        </form>
-    );
-}
+import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
     return (
@@ -44,7 +28,7 @@ export default function LoginPage() {
                         <path d="M0 7 Q17.5 14 35 7 T70 7 T105 7 T140 7" fill="none" stroke="#3A4A63" strokeWidth="2" />
                     </svg>
                 </div>
-                
+
                 <LoginForm />
             </div>
         </main>
