@@ -57,7 +57,7 @@ export async function apiFetch(
   url: string,
   options: RequestInit = {}
 ): Promise<Response> {
-  let token = obtenerCookie("token");
+  let token: string | null | undefined = obtenerCookie("token");
 
   const headers = new Headers(options.headers);
 
