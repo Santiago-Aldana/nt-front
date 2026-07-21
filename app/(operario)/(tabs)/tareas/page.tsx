@@ -14,6 +14,7 @@ import { apiFetch } from "../../../../lib/api";
 
 type Maquina = {
   id: number;
+  documentId: string;
   nombre: string;
 };
 
@@ -72,9 +73,9 @@ export default function TareasPage() {
         new Map(
           (
             datosUsuario.maquinasAsignadas ?? []
-          ).map((m: any) => [
-            m.documentId,
-            m,
+          ).map((maquina: Maquina) => [
+            maquina.documentId,
+            maquina,
           ])
         ).values()
       ) as Maquina[];
@@ -88,7 +89,7 @@ export default function TareasPage() {
 
       const idsMaquinas =
         maquinasUnicas.map(
-          (m) => m.id
+          (maquina) => maquina.id
         );
 
       if (idsMaquinas.length === 0) {
@@ -162,7 +163,52 @@ export default function TareasPage() {
     }
 
     try {
-      const res = await apiFetch(
+      /*
+       * PRIMER PASO:
+       * Actualizamos la referencia de la máquina.
+       */
+
+      const resMaquina = await apiFetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/maquinas/${tareaACompletar.maquina.documentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: {
+              referenciaActual:
+                tareaACompletar.referenciaNueva,
+            },
+          }),
+        }
+      );
+
+      if (!resMaquina.ok) {
+        const texto = await resMaquina.text();
+
+        console.error(
+          "Error al actualizar referencia de máquina:",
+          {
+            status: resMaquina.status,
+            statusText: resMaquina.statusText,
+            respuesta: texto,
+          }
+        );
+
+        alert(
+          "No se pudo actualizar la referencia de la máquina."
+        );
+
+        return;
+      }
+
+      /*
+       * SEGUNDO PASO:
+       * Marcamos la tarea como completada.
+       */
+
+      const resTarea = await apiFetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/tareas/${tareaACompletar.documentId}`,
         {
           method: "PUT",
@@ -178,25 +224,29 @@ export default function TareasPage() {
         }
       );
 
-      if (!res.ok) {
-  const texto = await res.text();
+      if (!resTarea.ok) {
+        const texto = await resTarea.text();
 
-  console.error(
-    "Error al completar tarea:",
-    {
-      status: res.status,
-      statusText: res.statusText,
-      respuesta: texto,
-    }
-  );
+        console.error(
+          "Error al completar tarea:",
+          {
+            status: resTarea.status,
+            statusText: resTarea.statusText,
+            respuesta: texto,
+          }
+        );
 
-  return;
-}
+        alert(
+          "La referencia se actualizó, pero no se pudo completar la tarea."
+        );
+
+        return;
+      }
 
       setTareas((actuales) =>
         actuales.filter(
-          (t) =>
-            t.id !== tareaACompletar.id
+          (tarea) =>
+            tarea.id !== tareaACompletar.id
         )
       );
 
@@ -205,6 +255,10 @@ export default function TareasPage() {
       console.error(
         "Error de red al completar tarea:",
         error
+      );
+
+      alert(
+        "No se pudo conectar con el servidor."
       );
     }
   }
@@ -235,8 +289,8 @@ export default function TareasPage() {
 
       setTareas((actuales) =>
         actuales.filter(
-          (t) =>
-            t.id !== tareaAEliminar.id
+          (tarea) =>
+            tarea.id !== tareaAEliminar.id
         )
       );
 
@@ -384,9 +438,9 @@ export default function TareasPage() {
         <NuevaTareaModal
           maquinas={usuario.maquinasAsignadas}
           usuarioId={usuario.id}
-          onCreada={(t) => {
+          onCreada={(tarea) => {
             setTareas((actuales) => [
-              t,
+              tarea,
               ...actuales,
             ]);
 
