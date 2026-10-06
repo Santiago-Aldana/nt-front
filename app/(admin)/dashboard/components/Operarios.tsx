@@ -11,7 +11,7 @@ export default function Operarios() {
 
       <div className="mt-8 rounded-2xl border border-dashed border-trenza-indigo/20 bg-white/50 p-12 text-center">
         <p className="text-sm text-trenza-texto/50">
-          Placeholder de Operarios
+          En construcción
         </p>
       </div>
     </section>

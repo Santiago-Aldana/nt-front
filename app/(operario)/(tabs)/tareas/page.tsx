@@ -313,7 +313,7 @@ export default function TareasPage() {
 
   return (
     <main className="p-4 pb-24">
-      <h1 className="font-display font-medium text-lg text-trenza-texto mb-4">
+      <h1 className="font-display font-bold text-xl flex items-center justify-center text-trenza-indigo mb-4">
         Mis tareas
       </h1>
 

@@ -11,7 +11,7 @@ export default function Tareas() {
 
       <div className="mt-8 rounded-2xl border border-dashed border-trenza-indigo/20 bg-white/50 p-12 text-center">
         <p className="text-sm text-trenza-texto/50">
-          Placeholder de Tareas
+          En construcción
         </p>
       </div>
     </section>

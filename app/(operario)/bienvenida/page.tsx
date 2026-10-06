@@ -1,8 +1,10 @@
 "use client";
 
+import React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiFetch } from "../../../lib/api";
+import Image from "next/image";
 
 export default function BienvenidaPage() {
   const [nombre, setNombre] = useState("");
@@ -100,13 +102,24 @@ export default function BienvenidaPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-trenza-fondo p-4">
-      <div className="w-full max-w-sm bg-trenza-indigo rounded-2xl flex flex-col items-center px-6 py-9">
-        <p className="text-sm text-trenza-crema/70">
+    <main className="relative min-h-screen flex items-center justify-center p-4">
+
+      <Image
+        src="/images/loginBG.png"
+       alt=""
+      fill
+      priority
+      className="object-cover"
+      />
+
+   <div className="absolute inset-0 bg-trenza-fondo/40" />
+
+    <div className="relative z-10 w-full max-w-sm bg-trenza-crema rounded-2xl flex flex-col items-center px-6 py-9">
+        <p className="text-medium text-trenza-azul font-bold">
           Bienvenido
         </p>
 
-        <p className="text-lg font-medium text-trenza-crema mb-5">
+        <p className="text-lg font-medium text-trenza-azul/90 mb-5">
           {nombre}
         </p>
 
@@ -119,32 +132,32 @@ export default function BienvenidaPage() {
           <path
             d="M0 7 Q17.5 0 35 7 T70 7 T105 7 T140 7"
             fill="none"
-            stroke="#C97D2E"
+            stroke="#B90004"
             strokeWidth="2"
           />
 
           <path
             d="M0 7 Q17.5 14 35 7 T70 7 T105 7 T140 7"
             fill="none"
-            stroke="#7C8CA6"
+            stroke="#3A4A63"
             strokeWidth="2"
           />
         </svg>
 
-        <div className="w-[90px] h-[90px] rounded-full bg-trenza-ocre flex items-center justify-center mb-4">
+        <div className="w-[90px] h-[90px] rounded-full bg-trenza-azul/70 flex items-center justify-center mb-4">
           <span className="text-3xl font-medium text-trenza-crema">
             {cantidadPendientes}
           </span>
         </div>
 
-        <p className="text-sm text-trenza-crema text-center max-w-[220px] mb-7">
+        <p className="text-sm text-trenza-azul text-center max-w-[220px] mb-7">
           {mensaje}
         </p>
 
         <Link
           href="/tareas"
           replace
-          className="w-full h-12 rounded-lg bg-trenza-crema text-trenza-texto text-sm font-medium flex items-center justify-center"
+          className="w-full h-12 rounded-lg bg-trenza-red/80 text-trenza-crema text-sm font-bold flex items-center justify-center"
         >
           Ver mis tareas
         </Link>

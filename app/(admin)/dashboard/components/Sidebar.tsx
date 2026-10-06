@@ -1,13 +1,14 @@
 "use client";
 
 import {
-  Factory,
+  Play,
   ListChecks,
   FileWarning,
   Users,
   MessageCircle,
 } from "lucide-react";
 import PerfilAdmin from "./PerfilAdmin";
+import Image from "next/image";
 
 export type Seccion =
   | "maquinas"
@@ -25,7 +26,7 @@ const secciones = [
   {
     id: "maquinas" as Seccion,
     nombre: "Máquinas",
-    icono: Factory,
+    icono: Play,
   },
   {
     id: "tareas" as Seccion,
@@ -55,15 +56,25 @@ export default function Sidebar({
 }: SidebarProps) {
   return (
     <aside className="w-64 h-screen shrink-0 bg-trenza-fondo p-4 flex flex-col">
-      <div className="px-3 py-4 mb-6">
-        <p className="font-display text-xl tracking-wide text-trenza-crema">
-          NACIONAL DE
-        </p>
+      <div className="flex items-center gap-3 px-3 py-4 mb-6">
+  <Image
+    src="/images/logo-01.png"
+    alt="Logo Nacional de Trenzados"
+    width={52}
+    height={52}
+    priority
+  />
 
-        <p className="font-display text-xl tracking-wide text-trenza-ocre">
-          TRENZADOS
-        </p>
-      </div>
+  <div>
+    <p className="font-display text-lg leading-none tracking-wide text-trenza-crema">
+      NACIONAL DE
+    </p>
+
+    <p className="font-display text-lg leading-none tracking-wide text-trenza-crema mt-1">
+      TRENZADOS
+    </p>
+  </div>
+</div>
 
       <nav className="flex flex-col gap-1">
         {secciones.map((seccion) => {

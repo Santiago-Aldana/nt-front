@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { LogOut, X } from "lucide-react";
 import { borrarCookiesSesion } from "../../../lib/cookies";
 import { apiFetch, cerrarSesionAPI } from "../../../lib/api";
+import Image from "next/image";
 
 type Usuario = {
   username: string;
@@ -81,17 +82,33 @@ export default function TopBar() {
     usuario?.username?.slice(0, 2).toUpperCase() ?? "";
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-14 bg-trenza-indigo flex items-center justify-between px-4 z-20">
-      <span className="text-trenza-crema font-display font-medium text-sm">
-        NACIONAL DE TRENZADOS
-      </span>
+    <header className="fixed top-0 left-0 right-0 h-18 bg-trenza-indigo flex items-center justify-between px-5 z-20 shadow-md">
+      <div className="flex items-center gap-3">
+    <Image
+        src="/images/logo-01.png"
+        alt="Logo"
+        width={78}
+        height={78}
+        priority
+    />
+
+    <div>
+        <p className="text-trenza-crema font-display font-semibold text-lg leading-none">
+            NACIONAL
+        </p>
+
+        <p className="text-trenza-crema/90 font-display text-base tracking-wider">
+            DE TRENZADOS
+        </p>
+    </div>
+</div>
 
       <div className="relative" ref={menuRef}>
         <button
           onClick={() =>
             setMenuAbierto((abierto) => !abierto)
           }
-          className="w-9 h-9 rounded-full overflow-hidden border-2 border-trenza-crema flex items-center justify-center bg-trenza-ocre"
+          className="w-12 h-12 rounded-full overflow-hidden border-2 border-trenza-indigo/80 flex items-center justify-center bg-trenza-crema shadow-md transition-transform hover:scale-105"
         >
           {urlAvatar ? (
             <img
@@ -100,7 +117,7 @@ export default function TopBar() {
               className="w-full h-full object-cover"
             />
           ) : (
-            <span className="text-xs font-medium text-trenza-crema">
+            <span className="text-xs font-bold text-trenza-indigo">
               {iniciales}
             </span>
           )}
@@ -110,7 +127,7 @@ export default function TopBar() {
           <div className="fixed inset-0 z-30 flex items-center justify-center pointer-events-none">
             <div
               ref={menuRef}
-              className="pointer-events-auto w-72 bg-white rounded-2xl border border-black/5 shadow-lg p-5"
+              className="pointer-events-auto w-72 rounded-2xl border-6 border-trenza-crema/15 shadow-lg p-5 bg-trenza-indigo"
             >
               <button
                 onClick={() => setMenuAbierto(false)}
@@ -118,8 +135,8 @@ export default function TopBar() {
                 aria-label="Cerrar"
               >
                 <X
-                  size={18}
-                  className="text-trenza-texto/60"
+                  size={20}
+                  className="text-trenza-crema"
                 />
               </button>
 
@@ -128,15 +145,15 @@ export default function TopBar() {
                   <img
                     src={urlAvatar}
                     alt="Foto de perfil"
-                    className="w-24 h-24 rounded-full object-cover border-4 border-trenza-crema"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-trenza-indigo/80"
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-trenza-ocre flex items-center justify-center text-2xl font-medium text-trenza-crema border-4 border-trenza-crema">
+                  <div className="w-24 h-24 rounded-full bg-trenza-crema flex items-center justify-center text-2xl font-bold text-trenza-indigo border-4 border-trenza-indigo/80">
                     {iniciales}
                   </div>
                 )}
 
-                <p className="text-lg font-medium text-trenza-texto mt-3">
+                <p className="text-lg font-medium text-trenza-crema mt-3">
                   {usuario.username}
                 </p>
 
@@ -147,11 +164,11 @@ export default function TopBar() {
                 </span>
               </div>
 
-              <div className="h-px bg-black/5 my-4" />
+              <div className="h-px bg-trenza-crema/80 border-1 border-trenza-crema/80 my-4" />
 
               <button
                 onClick={cerrarSesion}
-                className="w-full h-11 rounded-lg bg-pink-50 text-red-700 text-sm font-medium flex items-center justify-center gap-2"
+                className="w-full h-11 rounded-lg bg-trenza-red/65 text-trenza-crema text-sm font-medium flex items-center justify-center gap-2"
               >
                 <LogOut size={16} />
                 Cerrar sesión

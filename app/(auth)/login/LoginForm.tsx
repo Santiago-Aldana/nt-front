@@ -66,22 +66,22 @@ export default function LoginForm() {
       className="flex flex-col gap-4 w-full"
     >
       <div>
-        <label className="text-xs text-trenza-azul/70 block mb-1">
-          Código de operario
+        <label className="text-s text-trenza-azul/90 block mb-1">
+          Usuario
         </label>
 
         <input
           type="text"
           value={codigo}
           onChange={(e) => setCodigo(e.target.value)}
-          placeholder="Ej: OP-014"
-          className="w-full h-12 rounded-lg border border-trenza-indigo/20 bg-white px-4 text-base text-trenza-azul focus:outline-none focus:ring-2 focus:ring-[#C97D2E]"
+          placeholder="Escriba su usuario"
+          className="text-sm w-full h-12 rounded-lg border border-trenza-indigo/20 bg-white px-4 text-base text-trenza-azul focus:outline-none focus:ring-2 focus:ring-color-trenza-red/60"
           required
         />
       </div>
 
       <div>
-        <label className="text-xs text-trenza-azul/70 block mb-1">
+        <label className="text-s text-trenza-azul/90 block mb-1">
           Contraseña
         </label>
 
@@ -90,7 +90,7 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="********"
-          className="w-full h-12 rounded-lg border border-trenza-indigo/20 bg-white px-4 text-base text-trenza-azul focus:outline-none focus:ring-2 focus:ring-[#C97D2E]"
+          className="text-s w-full h-12 rounded-lg border border-trenza-indigo/20 bg-white px-4 text-base text-trenza-azul focus:outline-none focus:ring-2 focus:ring-color-trenza-red/60"
           required
         />
       </div>
@@ -104,7 +104,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={cargando}
-        className="h-12 rounded-lg bg-trenza-ocre text-trenza-crema text-sm font-medium mt-2 disabled:opacity-60"
+        className="h-12 rounded-lg bg-trenza-red/80 text-trenza-crema text-sm font-bold mt-2 disabled:opacity-60"
       >
         {cargando ? "Ingresando..." : "Ingresar"}
       </button>
